@@ -124,7 +124,8 @@
 						<div class="row mb-3">
 							<div class="col">
 								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Loại nhân viên" id="searchName">
+									<input type="text" class="form-control" placeholder="Loại nhân viên"
+										id="searchLoaiNV">
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="btnTimNV"><i class="fa fa-search"></i></span>
 									</div>
@@ -142,7 +143,7 @@
 									<th>Họ và tên</th>
 									<th>Email</th>
 									<th>Ngày làm</th>
-									<th>Chức vụ</th>									
+									<th>Chức vụ</th>
 									<th>Tổng lương</th>
 									<th>Xếp loại</th>
 									<th><em class="fa fa-cog"></em></th>
@@ -195,7 +196,7 @@
 									<span class="input-group-text"><i class="fa fa-user"></i></span>
 								</div>
 								<input type="text" name="tk" id="tknv" class="form-control input-sm"
-									placeholder="Tài khoản">
+									placeholder="Tài khoản (vui lòng nhập số)">
 							</div>
 
 							<span class="sp-thongbao" id="tbTKNV"></span>
@@ -246,7 +247,7 @@
 
 							<span class="sp-thongbao" id="tbNgay"></span>
 						</div>
-						
+
 						<div class="form-group">
 							<div class="input-group">
 								<div class="input-group-prepend">
@@ -275,7 +276,8 @@
 						<div class="form-group">
 							<div class="input-group">
 								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+									<span class="input-group-text"><i class="fa fa-clock-o"
+											aria-hidden="true"></i></span>
 								</div>
 								<input type="text" name="gioLam" id="gioLam" class="form-control input-sm"
 									placeholder="Giờ làm">
@@ -288,15 +290,14 @@
 
 				<!-- Modal footer -->
 				<div class="modal-footer" id="modal-footer">
-					<button id="btnThemNV" type="button" class="btn btn-success">Thêm người dùng</button>
-					<button id="btnCapNhat" type="button" class="btn btn-success">Cập nhật</button>
-					<button id="btnDong" type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+					<button id="btnThemNV" type="button" class="btn btn-success" onclick="themNhanVien()">Thêm người dùng</button>
+					<button id="btnCapNhat" type="button" class="btn btn-success" onclick="capNhatNhanVien()">Cập nhật</button>
+					<button id="btnDong" type="button" class="btn btn-danger" onclick="dongBangKhiSua()" data-dismiss="modal">Đóng</button>
 				</div>
-
 			</div>
 		</div>
 	</div>
-
+	<div id="background_show" class="fade show"></div>
 	<!-- Bootstrap -->
 	<script src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/jquery.easing.min.js"></script>
@@ -324,6 +325,10 @@
 			});
 		});
 	</script>
+	<script src="./MyJS/OOP.js"></script>
+	<script src="./MyJS/ClassOOP.js"></script>
+	<script src="./MyJS/Validation.js"></script>
+	<script src="./MyJS/main.js"></script>
 </body>
 
 </html>
