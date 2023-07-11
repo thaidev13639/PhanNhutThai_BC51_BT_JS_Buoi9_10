@@ -2,6 +2,7 @@ var danhsachNV = new LopNhanVien();
 var Valida = new Validation();
 
 getLocalStore();
+
 function DomEle(id) {
     return document.getElementById(id);
 };
@@ -22,7 +23,7 @@ document.getElementById("btnThem").onclick = function moBangThem() {
     rsThongBao();
 }
 
-function layThongTinNV(isAdd) {
+function layThongTinNV(isAddTaiKhoan, isAddEmail) {
 
     var taiKhoanNV = DomEle("tknv").value;
     var hoTenNV = DomEle("name").value;
@@ -35,21 +36,23 @@ function layThongTinNV(isAdd) {
 
     var isValid = true;
     // Tài Khoản
-    if(isAdd){
+    if (isAddTaiKhoan) {
         isValid &= Valida.CheckRong(taiKhoanNV, "tbTKNV", "(*) vui lòng không bỏ trống") && Valida.CheckDoDai(taiKhoanNV, "tbTKNV", "(*) vui lòng nhập từ 4-6 chữ số", 4, 6) && Valida.CheckTaiKhoanTonTai(taiKhoanNV, "tbTKNV", "(*) tài khoản đã tồn tại", danhsachNV.arrDSNV);
+        // isValid &= Valida.CheckEmailTonTai(emailNV, "tbEmail", "(*) Email đã tồn tại", danhsachNV.arrDSNV);
     }
     //Họ Và Tên
-    isValid &= Valida.CheckRong(hoTenNV, "tbTen", "(*) vui lòng không bỏ trống") && Valida.CheckPattern(hoTenNV, "tbTen", "(*) vui lòng nhập họ tên đúng dạng ký tự", "^[a-zA-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶ" + "ẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợ" + "ụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s]+$") && Valida.CheckDoDai(hoTenNV, "tbTen", "(*)vui lòng điền đầy đủ họ và tên", 6, 40); //&& Valida.CheckTenNhanVien(hoTenNV,"tbTen", "(*) tên nhân viên đã tồn tại", danhsachNV.arrDSNV);
+    isValid &= Valida.CheckRong(hoTenNV, "tbTen", "(*) vui lòng không bỏ trống") && Valida.CheckPattern(hoTenNV, "tbTen", "(*) vui lòng nhập họ tên đúng dạng ký tự", "^[a-zA-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶ" + "ẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợ" + "ụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s]+$") && Valida.CheckDoDai(hoTenNV, "tbTen", "(*)vui lòng điền đầy đủ họ và tên", 6, 40);
 
     // Email
-    isValid &= Valida.CheckRong(emailNV, "tbEmail", "(*) vui lòng không bỏ trống") && Valida.CheckPattern(emailNV, "tbEmail", "(*) vui lòng nhập chữ, sô, có @gmail.com, không ký tự đặc biệt", /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
+    if (isAddEmail) {
+        isValid &= Valida.CheckRong(emailNV, "tbEmail", "(*) vui lòng không bỏ trống") && Valida.CheckPattern(emailNV, "tbEmail", "(*) vui lòng nhập chữ, sô, có @gmail.com, không ký tự đặc biệt", /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/) && Valida.CheckEmailTonTai(emailNV, "tbEmail", "(*) Email đã tồn tại", danhsachNV.arrDSNV);
+    }
 
     // Mật Khẩu
     isValid &= Valida.CheckRong(matKhauNV, "tbMatKhau", "(*) vui lòng không bỏ trống") && Valida.CheckDoDai(matKhauNV, "tbMatKhau", "(*) Vui lòng nhập từ 6-10 ký tự", 6, 10) && Valida.CheckPattern(matKhauNV, "tbMatKhau", "(*) In hoa , Thường , số và kí tự đặc biệt", /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{0,}$/);
 
     //  Ngày Vào Làm ****
-    isValid &= Valida.CheckRong(ngayLam, "tbNgay", "(*) vui lòng không bỏ trống");
-    // && Valida.CheckPattern(ngayLam, "tbNgay", "(*) vui lòng nhập đúng ngày/tháng/năm",/^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/);
+    isValid &= Valida.CheckRong(ngayLam, "tbNgay", "(*) vui lòng không bỏ trống") && Valida.CheckPattern(ngayLam, "tbNgay", "(*) định dạng mm/dd/yyyy", /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/);
 
     // Lương Căn Bản
     isValid &= Valida.CheckRong(luongCB, "tbLuongCB", "(*) vui lòng không bỏ trống") && Valida.CheckMucLuong(luongCB, "tbLuongCB", 1000000, "(*) mức lương không thấp hơn 1 triệu.", 20000000, "(*) mức lương không cao hơn 20 triệu", "(*) vui lòng nhập số và không có khoảng trắng");
@@ -108,7 +111,7 @@ function getLocalStore() {
     }
 }
 function themNhanVien() {
-    var nhanVien = layThongTinNV(true);
+    var nhanVien = layThongTinNV(true, true);
     // console.log(nhanVien);
     if (nhanVien) {
         danhsachNV.ThemNhanVien(nhanVien);
@@ -153,8 +156,26 @@ function suaNhanVien(TaiKhoan) {
     }
 }
 //btnCapNhat
+function getEmailNV(taiKhoan) {
+    for (var i = 0; i < danhsachNV.arrDSNV.length; i++) {
+        var nhanVien = danhsachNV.arrDSNV[i];
+        if(taiKhoan === nhanVien.TaiKhoan){
+            var emailNV = nhanVien.Email;
+        }
+    }
+    return emailNV;
+}
 function capNhatNhanVien() {
-    var nhanVien = layThongTinNV(false);
+    var taiKhoanNV = DomEle("tknv").value;
+    var EmailNV = getEmailNV(taiKhoanNV);
+    var inputEmail = DomEle("email").value;
+    if (EmailNV === inputEmail) {
+        DomEle("tbEmail").style.display = "none"
+        var nhanVien = layThongTinNV(false, false);
+    } else {
+        var nhanVien = layThongTinNV(false, true);
+    };
+
     if (nhanVien) {
         danhsachNV.CapNhatNhanVien(nhanVien);
         renderTable(danhsachNV.arrDSNV);
@@ -190,13 +211,16 @@ function searchNhanVien() {
         renderTable(danhsachNV.arrDSNV);
     }
 }
-
 DomEle("searchLoaiNV").addEventListener("keyup", searchNhanVien);
 
-/**
- * Cần Làm lại:
- * - Mật khảu cho hiện pass
- * - Ngày Tháng Chỉnh lại định dạng mm/dd/yyyy
- * - Lương CB nhập vào có khoảng cách? false
- * - 
- */
+var x = true;
+function showPassWord() {
+    if (x) {
+        DomEle("password").type = "text";
+        x = false;
+    } else {
+        DomEle("password").type = "password";
+        x = true;
+    }
+}
+{/* <i class="fab fa-ello"></i> */ }

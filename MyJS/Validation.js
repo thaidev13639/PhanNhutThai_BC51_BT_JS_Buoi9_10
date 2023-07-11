@@ -42,11 +42,36 @@ function Validation() {
         var isValid = false;
         if (arr.length === 0) {
             isValid = true;
+            return isValid;
         };
         console.log(arr)
         for (var i = 0; i < arr.length; i++) {
             var NhanVien = arr[i];
             if (NhanVien.TaiKhoan === value) {
+                // tìm thấy
+                DomEle(errorID).innerHTML = mess;
+                DomEle(errorID).style.display = "block";
+                isValid = false;
+                break;
+            } else {
+                // không tìm thấy
+                DomEle(errorID).style.display = "none";
+                isValid = true;
+            };
+        }
+        return isValid;
+    }
+    this.CheckEmailTonTai = function (value, errorID, mess, arr) {
+        // tạo flag 
+        var isValid = false;
+        if (arr.length === 0) {
+            isValid = true;
+             return isValid;
+        };
+        console.log(arr)
+        for (var i = 0; i < arr.length; i++) {
+            var NhanVien = arr[i];
+            if (NhanVien.Email === value) {
                 // tìm thấy
                 DomEle(errorID).innerHTML = mess;
                 DomEle(errorID).style.display = "block";
